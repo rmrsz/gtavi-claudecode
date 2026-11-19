@@ -26,6 +26,17 @@ For a streamer's reaction clip the title sits on the seam between face and game 
 
 Describe what happens on screen. Never put words in the streamer's mouth: no quotes they did not say, no made-up opinions. Emojis are optional, at most 2.
 
+## Português (cortes BR)
+
+Same formula, in Brazilian Portuguese, sentence case with 2 or 3 words in CAPS:
+
+- "[Streamer] SURTOU com a POLÍCIA no GTA 6"
+- "Ele NÃO ACREDITOU no que achou no mapa"
+- "O chat FOI À LOUCURA com essa fuga"
+- "Primeira vez em VICE CITY e já deu isso"
+
+Avoid "você não vai acreditar", "espera até o final", "INSANO" alone. Write "GTA 6", never "GTA VI oficial".
+
 ## What does not work
 
 - Bare labels: "GTA 6 clip", "Funny moment"

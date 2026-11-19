@@ -10,6 +10,8 @@ Read pages live. Do not rely on memory; payouts and budgets change daily.
 1. Check these sources, using the browser tools or by fetching the pages:
    - Whop Content Rewards: `https://whop.com/discover/` (search "GTA 6", "GTA VI", "gaming clipping", "content rewards") and the public campaign pages on `https://contentrewards.com/` (campaign links look like `contentrewards.com/c/campaigns/<id>`).
    - Clip (Clip Tech, LLC): `https://www.clip.tech/clippers` lists live campaigns with the rate per 1K views and the share of budget left, without login. The campaign briefs and rules live in their Discord, so ask the human to paste them. Their terms say payouts are Net 30 after a campaign ends and depend on the client paying; tell the human this in one line.
+   - Brazilian clip championships ("campeonato de cortes"): `https://cut.pro/pt-BR` lists them; also ask the human for streamers' Discord announcements. Note which networks count (TikTok, Instagram, YouTube, Kwai, Facebook) and the platform fee.
+   - In `campaigns.md`, give each campaign its own `## Name` heading with `min_seconds:`, `max_seconds:`, `required_hashtags:` and `required_mention:` lines, so `check.py --name` can read it.
 2. For each campaign that looks live, open its page and record:
    - name and creator or brand
    - platforms accepted

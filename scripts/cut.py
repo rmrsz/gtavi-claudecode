@@ -20,10 +20,12 @@ def ts(t):
 
 
 import re as _re
-_SLURS = _re.compile(r"\b(nigg\w*|n[i1]gg?a\w*|f[a@]gg?\w*|retard\w*|tranny\w*|chink\w*|spic\w*|kike\w*)\b", _re.I)
+_SLURS = _re.compile(r"\b(nigg\w*|n[i1]gg?a\w*|f[a@]gg?\w*|retard\w*|tranny\w*|chink\w*|spic\w*|kike\w*"
+                     r"|viad[oa]s?|viadinh[oa]s?|viadagem|travec[oa]s?|retardad\w*|mongol\w*|sapat[aã]o)\b", _re.I)
 
 
-_SWEARS = _re.compile(r"\b(fuck\w*|motherfuck\w*|shit\w*|bitch\w*|cunt\w*|dick\w*|pussy\w*|asshole\w*|bastard\w*|whore\w*|slut\w*)\b", _re.I)
+_SWEARS = _re.compile(r"\b(fuck\w*|motherfuck\w*|shit\w*|bitch\w*|cunt\w*|dick\w*|pussy\w*|asshole\w*|bastard\w*|whore\w*|slut\w*"
+                      r"|porra|caralh\w*|carai|puta\w*|put[ao]\s+que\s+pariu|merd\w*|fod[aei]\w*|fodid\w*|cu|buceta|arromb\w*|fdp|vsf|pqp|vtnc|tnc|krl|crl|desgraçad\w*|cacete)\b", _re.I)
 
 
 def _mask(m):
