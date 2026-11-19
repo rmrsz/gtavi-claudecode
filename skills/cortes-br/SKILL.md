@@ -18,6 +18,15 @@ Não havia campanha de GTA 6 com streamer brasileiro. O humano escolheu uma pág
 - **Lives:** `streams.py --query "gta 6"`, sem `--lang`.
 - **Exigências da campanha:** overlay da live, hashtags e menções exigidas vão para o `campaigns.md` e são checadas pelo `check.py --name`.
 
+### Página de games e campanhas de marca de games (Eneba)
+
+A página é de games em geral, não só de GTA 6 (escolhido em 19/11/2026). Aceite qualquer campanha de jogo ou de loja de jogos que pague bem e não seja de apostas, cripto ou +18.
+
+- **Eneba ("Never Pay Full Price for Games"), US$ 2,50 por mil views:** pede vídeos curtos originais que levem gamers para `ne.ba/clip`, com o código `CLIP` (5% de desconto) e `#Ad`. No `campaigns.md`, use `required_hashtags: #Ad` e `required_text: ne.ba/clip | code CLIP`.
+- O brief completo e os 2 arquivos de referência só aparecem depois de entrar na campanha. Peça ao humano para colar o brief antes do primeiro vídeo. Siga o brief sobre qual material pode ser usado.
+- Não use a live de outro streamer num vídeo de anúncio da Eneba, a menos que o brief permita. Um anúncio com o rosto de alguém sem autorização é um risco maior que um corte comum. Prefira o material de referência da campanha ou gameplay do próprio humano.
+- O link e o código vão na legenda. O gancho na tela fala do jogo, e a oferta aparece no fim ("GTA 6 cheaper? Code CLIP").
+
 ## Modo BR (para quando houver campanhas brasileiras de GTA 6)
 
 ### Formato BR

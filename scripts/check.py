@@ -3,6 +3,7 @@
 usage: python check.py <clip.mp4> [--campaign campaigns.md] [--name "Campaign"] [--caption "text"]
 Reads clip_<n>.json (written by cut.py) next to the clip if present. Exit code 1 on any FAIL.
 campaigns.md lines understood: min_seconds: 15 / max_seconds: 60 / required_hashtags: #a #b / required_mention: @x
+  / required_text: ne.ba/clip | code CLIP   (each part, split on |, must appear in the caption)
 With several campaigns, give each its own "## Name" heading and pass --name: only that section's rules are used.
 """
 import argparse, re, sys
@@ -16,7 +17,7 @@ BANNED = ["leak", "leaked build", "play early", "early access download", "free d
           "baixar gratis", "crackeado", "pirata", "glitch de dinheiro", "dinheiro infinito"]
 
 
-RULE_KEYS = re.compile(r"(min_seconds|max_seconds|required_hashtags|required_mention):", re.I)
+RULE_KEYS = re.compile(r"(min_seconds|max_seconds|required_hashtags|required_mention|required_text):", re.I)
 
 
 def campaign_sections(txt):
@@ -35,7 +36,7 @@ def campaign_sections(txt):
 
 
 def parse_campaign(path, name=None):
-    rules = {"min": 7.0, "max": 60.0, "tags": [], "mention": None}
+    rules = {"min": 7.0, "max": 60.0, "tags": [], "mention": None, "text": []}
     if not path or not Path(path).exists():
         return rules, False
     txt = Path(path).read_text(encoding="utf-8", errors="replace")
@@ -56,6 +57,8 @@ def parse_campaign(path, name=None):
     if m: rules["tags"] = re.findall(r"#\w+", m.group(1))
     m = re.search(r"required_mention:\s*(@\w+)", txt, re.I)
     if m: rules["mention"] = m.group(1)
+    m = re.search(r"required_text:\s*(.+)", txt, re.I)
+    if m: rules["text"] = [x.strip() for x in m.group(1).split("|") if x.strip()]
     return rules, True
 
 
@@ -109,6 +112,9 @@ def main():
     if rules["mention"]:
         ok = rules["mention"].lower() in a.caption.lower()
         add("required mention", ok, rules["mention"])
+    if rules["text"]:
+        miss = [x for x in rules["text"] if x.lower() not in a.caption.lower()]
+        add("required text", not miss, ("missing " + ", ".join(miss)) if miss else ", ".join(rules["text"]))
     if not have_campaign:
         add("campaign rules file", True, "none given, defaults used (NOT a rules check)")
 
