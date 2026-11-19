@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from common import job_dir, run, save_json, tool, ytdlp_base
 
-HYPE = re.compile(r"(?i:LMAO|KEKW|LOL|CLIP|HOLY|NO WAY|K{3,}|\bRS(RS)+|HAHA(HA)+|\bMDS\b|MEU DEUS|CARACA|\bSLK\b|\bPQP\b|CLIPA|CORTA|NOSSA|\bAA{3,}|CARALHO|PORRA|\bVSF\b|CACETE|\bFODA|FODEU|PUTA QUE PARI|PUTZ|ABSURDO|SURREAL|SINISTRO|BRABO|\bKKKJ|HUA(HUA)+)|\bW+\b|[💀😂🔥😭🤣]")
+HYPE = re.compile(r"(?i:LMAO|KEKW|LOL|CLIP|HOLY|NO WAY|K{3,}|\bRS(RS)+|HAHA(HA)+|\bMDS\b|MEU DEUS|CARACA|\bSLK\b|\bPQP\b|CLIPA|CORTA|NOSSA|\bAA{3,}|CARALHO|PORRA|\bVSF\b|CACETE|\bFODA|FODEU|PUTA QUE PARI|PUTZ|ABSURDO|SURREAL|SINISTRO|BRABO|\bKKKJ|HUA(HUA)+|\bKRL\b|\bCRL\b|\bTNC\b|\bVTNC\b|\bNSS\b|\bAFF+\b|SOCORRO|\bQ ISSO|QUE ISSO|N[AÃ]O ACREDITO|NAO CREIO|[EÉ] LOUCO|T[AÁ] LOUCO|MLK DOIDO|\bPAI\b|KSKS|KAKA(KA)+|HAU(HAU)+|AHU(AHU)+|HSHS|JKJK|\bRSRS)|\bW+\b|[💀😂🔥😭🤣]")
 NOISE = re.compile(r"(?i)giveaway|\braid(ing|ed)?\b|\bbrb\b|be right back|ad break|sponsor|subscribe|discord\.gg|https?://|promo code|follow me"
                    r"|sorteio|se inscrev|\bsegue (a[ií]|l[aá])|cupom|link na bio|\bpix\b|j[aá] volto|intervalo|propaganda|patroc[ií]n")
 STOP = set(("the a an and or to of is it in i you that this on for with was are be so but not my me we he she they what just like at as if do get "

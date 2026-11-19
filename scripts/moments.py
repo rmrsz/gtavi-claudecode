@@ -18,10 +18,11 @@ HYPE = re.compile(r"\b(no way|oh my god|omg|what|wait|bro|let'?s go|holy|insane|
                   r"socorro|mds|pqp|slk|carai|caralho|porra|ai meu deus|eita|tom[ao] no|bora|n[aã]o n[aã]o|"
                   # BR swears and slang used as excitement (captions still mask the swears)
                   r"puta que pari[ui]|puta merda|putz|vsf|cacete|que foda|foda|fodeu|absurdo|surreal|sinistro|brabo|"
-                  r"t[aá] maluco|t[aá] doido|ave maria|miseric[oó]rdia|jesus|oxe|uau|nossa senhora|mano do c[eé]u)\b", re.I)
+                  r"t[aá] maluco|t[aá] doido|[eé] louco|ele [eé] louco|q isso|krl|crl|ave maria|miseric[oó]rdia|jesus|oxe|uau|nossa senhora|mano do c[eé]u)\b", re.I)
 CHAT_HYPE = re.compile(r"(LMAO|LOL|KEKW|OMEGALUL|W+\b|CLIP|💀|😂|🔥|NO WAY|HOLY"
                        r"|K{3,}|\bk{3,}|\bRS(RS)+|HAHA(HA)+|\bMDS\b|MEU DEUS|CARACA|\bSLK\b|\bPQP\b|CLIPA|CORTA|CORTE|\bAA{3,}|NOSSA"
-                       r"|CARALHO|PORRA|\bVSF\b|CACETE|\bFODA|FODEU|PUTA QUE PARI|PUTZ|ABSURDO|SURREAL|SINISTRO|BRABO|\bKKKJ|HUA(HUA)+|😭|🤣)", re.I)
+                       r"|CARALHO|PORRA|\bVSF\b|CACETE|\bFODA|FODEU|PUTA QUE PARI|PUTZ|ABSURDO|SURREAL|SINISTRO|BRABO|\bKKKJ|HUA(HUA)+|😭|🤣"
+                       r"|\bKRL\b|\bCRL\b|\bTNC\b|\bVTNC\b|\bNSS\b|\bAFF+\b|SOCORRO|\bQ ISSO|QUE ISSO|N[AÃ]O ACREDITO|NAO CREIO|[EÉ] LOUCO|T[AÁ] LOUCO|MLK DOIDO|\bPAI\b|KSKS|KAKA(KA)+|HAU(HAU)+|AHU(AHU)+|HSHS|JKJK|\bRSRS|\bOMG\b)", re.I)
 
 
 def fetch(src, d, max_min):

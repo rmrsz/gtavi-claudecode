@@ -25,7 +25,7 @@ _SLURS = _re.compile(r"\b(nigg\w*|n[i1]gg?a\w*|f[a@]gg?\w*|retard\w*|tranny\w*|c
 
 
 _SWEARS = _re.compile(r"\b(fuck\w*|motherfuck\w*|shit\w*|bitch\w*|cunt\w*|dick\w*|pussy\w*|asshole\w*|bastard\w*|whore\w*|slut\w*"
-                      r"|porra|caralh\w*|carai|puta\w*|put[ao]\s+que\s+pariu|merd\w*|fod[aei]\w*|fodid\w*|cu|buceta|arromb\w*|fdp|vsf|pqp|vtnc|desgraçad\w*|cacete)\b", _re.I)
+                      r"|porra|caralh\w*|carai|puta\w*|put[ao]\s+que\s+pariu|merd\w*|fod[aei]\w*|fodid\w*|cu|buceta|arromb\w*|fdp|vsf|pqp|vtnc|tnc|krl|crl|desgraçad\w*|cacete)\b", _re.I)
 
 
 def _mask(m):
