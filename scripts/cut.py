@@ -21,7 +21,7 @@ def ts(t):
 
 import re as _re
 _SLURS = _re.compile(r"\b(nigg\w*|n[i1]gg?a\w*|f[a@]gg?\w*|retard\w*|tranny\w*|chink\w*|spic\w*|kike\w*"
-                     r"|viad\w*|travec\w*|retardad\w*|mongol\w*|sapat[aã]o)\b", _re.I)
+                     r"|viad[oa]s?|viadinh[oa]s?|viadagem|travec[oa]s?|retardad\w*|mongol\w*|sapat[aã]o)\b", _re.I)
 
 
 _SWEARS = _re.compile(r"\b(fuck\w*|motherfuck\w*|shit\w*|bitch\w*|cunt\w*|dick\w*|pussy\w*|asshole\w*|bastard\w*|whore\w*|slut\w*"

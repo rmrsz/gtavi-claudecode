@@ -41,7 +41,7 @@ def parse_campaign(path, name=None):
     txt = Path(path).read_text(encoding="utf-8", errors="replace")
     secs = {k: v for k, v in campaign_sections(txt).items() if RULE_KEYS.search(v)}
     if name:
-        hit = [k for k in secs if name.lower() in k.lower()]
+        hit = [k for k in secs if k.lower() == name.lower()] or [k for k in secs if name.lower() in k.lower()]
         if len(hit) != 1:
             sys.exit(f"FAIL campaign '{name}': {'no' if not hit else 'more than one'} matching '## ' section with rules "
                      f"in {path} (sections with rules: {', '.join(secs) or 'none'})")
