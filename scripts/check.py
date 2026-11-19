@@ -1,8 +1,9 @@
 """Pre-post check of a finished clip.
 
-usage: python check.py <clip.mp4> [--campaign campaigns.md] [--caption "text"]
+usage: python check.py <clip.mp4> [--campaign campaigns.md] [--name "Campaign"] [--caption "text"]
 Reads clip_<n>.json (written by cut.py) next to the clip if present. Exit code 1 on any FAIL.
 campaigns.md lines understood: min_seconds: 15 / max_seconds: 60 / required_hashtags: #a #b / required_mention: @x
+With several campaigns, give each its own "## Name" heading and pass --name: only that section's rules are used.
 """
 import argparse, re, sys
 from pathlib import Path
@@ -10,14 +11,43 @@ sys.path.insert(0, str(Path(__file__).parent))
 from common import ffprobe, load_json
 
 BANNED = ["leak", "leaked build", "play early", "early access download", "free download", "crack", "piracy",
-          "mod menu", "money glitch", "afk bot"]
+          "mod menu", "money glitch", "afk bot",
+          "vazou", "vazamento", "vazado", "jogar antes", "download grátis", "download gratis", "baixar grátis",
+          "baixar gratis", "crackeado", "pirata", "glitch de dinheiro", "dinheiro infinito"]
 
 
-def parse_campaign(path):
+RULE_KEYS = re.compile(r"(min_seconds|max_seconds|required_hashtags|required_mention):", re.I)
+
+
+def campaign_sections(txt):
+    """Split campaigns.md on '## ' headings -> {heading: body}."""
+    out, name, buf = {}, None, []
+    for line in txt.splitlines():
+        if line.startswith("## "):
+            if name is not None:
+                out[name] = "\n".join(buf)
+            name, buf = line[3:].strip(), []
+        elif name is not None:
+            buf.append(line)
+    if name is not None:
+        out[name] = "\n".join(buf)
+    return out
+
+
+def parse_campaign(path, name=None):
     rules = {"min": 7.0, "max": 60.0, "tags": [], "mention": None}
     if not path or not Path(path).exists():
         return rules, False
     txt = Path(path).read_text(encoding="utf-8", errors="replace")
+    secs = {k: v for k, v in campaign_sections(txt).items() if RULE_KEYS.search(v)}
+    if name:
+        hit = [k for k in secs if name.lower() in k.lower()]
+        if len(hit) != 1:
+            sys.exit(f"FAIL campaign '{name}': {'no' if not hit else 'more than one'} matching '## ' section with rules "
+                     f"in {path} (sections with rules: {', '.join(secs) or 'none'})")
+        txt = secs[hit[0]]
+    elif len(secs) > 1:
+        sys.exit(f"FAIL {path} has rules for several campaigns ({', '.join(secs)}). Pass --name to pick one.")
     m = re.search(r"min_seconds:\s*(\d+(?:\.\d+)?)", txt, re.I)
     if m: rules["min"] = float(m.group(1))
     m = re.search(r"max_seconds:\s*(\d+(?:\.\d+)?)", txt, re.I)
@@ -44,6 +74,7 @@ def banned_in(text):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("clip"); ap.add_argument("--campaign"); ap.add_argument("--caption", default="")
+    ap.add_argument("--name", help="campaign heading in campaigns.md when it lists several")
     a = ap.parse_args()
     clip = Path(a.clip)
     res = []  # (name, ok, detail)
@@ -55,7 +86,7 @@ def main():
         sys.exit(f"FAIL file not found: {clip}")
     side = clip.with_suffix(".json")
     meta = load_json(side) if side.exists() else {}
-    rules, have_campaign = parse_campaign(a.campaign)
+    rules, have_campaign = parse_campaign(a.campaign, a.name)
     p = ffprobe(clip)
     streams = p.get("streams", [])
     v = next((s for s in streams if s.get("codec_type") == "video"), None)

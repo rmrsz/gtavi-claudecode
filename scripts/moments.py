@@ -12,8 +12,12 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).parent))
 from common import ffprobe, is_url, job_dir, load_json, run, save_json, tool, ytdlp_base, ytdlp_json
 
-HYPE = re.compile(r"\b(no way|oh my god|omg|what|wait|bro|let'?s go|holy|insane|crazy|yo+|wtf|dude|look at|nah|run|go go)\b", re.I)
-CHAT_HYPE = re.compile(r"(LMAO|LOL|KEKW|OMEGALUL|W+\b|CLIP|💀|😂|🔥|NO WAY|HOLY)", re.I)
+HYPE = re.compile(r"\b(no way|oh my god|omg|what|wait|bro|let'?s go|holy|insane|crazy|yo+|wtf|dude|look at|nah|run|go go"
+                  # Portuguese (BR streams)
+                  r"|meu deus|caraca|caramba|nossa|n[aã]o acredito|olha (isso|isso a[ií])|corre|vai vai|que isso|rapaz|vish|"
+                  r"socorro|mds|pqp|slk|carai|caralho|porra|ai meu deus|eita|tom[ao] no|bora|n[aã]o n[aã]o)\b", re.I)
+CHAT_HYPE = re.compile(r"(LMAO|LOL|KEKW|OMEGALUL|W+\b|CLIP|💀|😂|🔥|NO WAY|HOLY"
+                       r"|K{3,}|\bk{3,}|\bRS(RS)+|HAHA(HA)+|\bMDS\b|MEU DEUS|CARACA|\bSLK\b|\bPQP\b|CLIPA|CORTA|CORTE|\bAA{3,}|NOSSA)", re.I)
 
 
 def fetch(src, d, max_min):

@@ -1,6 +1,7 @@
 """Find live streams about a topic, ranked by concurrent viewers.
 
-usage: python streams.py --query "gta 6" --limit 20 --out streams.md
+usage: python streams.py --query "gta 6" --limit 20 --out streams.md [--lang pt]
+--lang pt: Twitch Helix filters by the stream's language; keyless Twitch and Kick keep titles that look Portuguese.
 YouTube always. Twitch always (Helix if TWITCH_CLIENT_ID and TWITCH_TOKEN are set, else keyless public GQL). Kick is tried once, skipped silently on failure.
 Viewer counts are exactly what the platform returned at run time.
 """
@@ -68,10 +69,23 @@ def twitch_nokey(game="Grand Theft Auto VI", limit=20):
              "live_for": fmt_dur(now - tw.started_ts(r["created_at"])) if tw.started_ts(r["created_at"]) else ""} for r in rows]
 
 
-def twitch(query):
+PT_HINT = None
+
+
+def looks_pt(title):
+    """Rough keyless language guess from a stream title (Helix with keys is exact)."""
+    import re
+    global PT_HINT
+    PT_HINT = PT_HINT or re.compile(r"(?i)\b(pt-?br|\[br\]|brasil|ao vivo|primeira vez|zerando|jogando|hoje|agora|pra|n[aã]o|"
+                                    r"lan[cç]amento|come[cç]ando|vamo|bora|galera)\b|[ãõçê]")
+    return bool(PT_HINT.search(title or ""))
+
+
+def twitch(query, lang=None):
     cid, tok = os.environ.get("TWITCH_CLIENT_ID"), os.environ.get("TWITCH_TOKEN")
     if not (cid and tok):
-        return twitch_nokey()
+        rows = twitch_nokey(limit=100 if lang else 20)
+        return [x for x in rows if looks_pt(x["title"])] if lang == "pt" else rows
     import requests
     h = {"Client-Id": cid, "Authorization": f"Bearer {tok}"}
     try:
@@ -79,7 +93,7 @@ def twitch(query):
         if not g.get("data"):
             return []
         gid = g["data"][0]["id"]
-        s = requests.get("https://api.twitch.tv/helix/streams", params={"game_id": gid, "first": 100}, headers=h, timeout=15).json()
+        s = requests.get("https://api.twitch.tv/helix/streams", params={"game_id": gid, "first": 100, **({"language": lang} if lang else {})}, headers=h, timeout=15).json()
     except Exception as e:
         print(f"twitch failed: {e}", file=sys.stderr)
         return []
@@ -116,14 +130,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--query", default="gta 6"); ap.add_argument("--limit", type=int, default=20)
     ap.add_argument("--out", default="streams.md")
+    ap.add_argument("--lang", help="language code, e.g. pt for Brazilian streams")
     a = ap.parse_args()
     sections = [("YouTube", youtube(a.query, a.limit))]
-    t = twitch(a.query)
+    t = twitch(a.query, a.lang)
     if t:
         t = sorted(t, key=lambda r: r["viewers"] or -1, reverse=True)[:a.limit]
     if t is not None:
         sections.append(("Twitch", t))
     k = kick(a.query)
+    if k and a.lang == "pt":
+        k = [x for x in k if looks_pt(x["title"])]
     if k:
         sections.append(("Kick", k))
     stamp = time.strftime("%Y-%m-%d %H:%M")

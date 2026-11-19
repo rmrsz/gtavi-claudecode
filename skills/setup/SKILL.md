@@ -7,9 +7,9 @@ description: First-run setup for the GTA 6 clip desk. Use when the user installs
 
 Do the work yourself. Ask the human only what is listed here.
 
-## 1. Install tools (no questions)
+## 1. Install tools
 
-Check each with `ffmpeg -version`, `yt-dlp --version`, `python -c "import faster_whisper, numpy"`. Install only what is missing:
+List what is missing and ask the human for one "yes" before installing anything. Never install other packages than these. Check each with `ffmpeg -version`, `yt-dlp --version`, `python -c "import faster_whisper, numpy"`. Install only what is missing:
 
 - ffmpeg. Windows: `winget install --id Gyan.FFmpeg -e --source winget`. macOS: `brew install ffmpeg`. Linux: `sudo apt install -y ffmpeg`
 - Python packages, all systems: `python -m pip install -U -r "${CLAUDE_PLUGIN_ROOT}/requirements.txt"` (faster-whisper, numpy, requests and a fresh yt-dlp; the scripts prefer the pip yt-dlp, because an old yt-dlp gets HTTP 403 from YouTube)

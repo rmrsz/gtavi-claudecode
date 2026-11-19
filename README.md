@@ -31,6 +31,17 @@ GTA 6 videos and live streams, find the best moments in the top one, cut my firs
 with hooks, check them against the campaign rules, and tell me what to post where.
 ```
 
+## Em português (fork rmrsz)
+
+Este fork adapta o plugin a cortes de streamers brasileiros: palavras de empolgação e chat em português ("KKKKK", "meu deus", "caraca", "CLIPA"), palavrões mascarados nas legendas, `streams.py --lang pt`, regras por campanha (`check.py --name`) e a skill `cortes-br` com o formato e a rotina diária. A instalação pede um "sim" antes de instalar qualquer coisa.
+
+```
+/plugin marketplace add rmrsz/gtavi-claudecode
+/plugin install gtavi-claudecode@gtavi-claudecode
+```
+
+Depois diga ao Claude: "Use cortes-br. Configure minha página de cortes de GTA 6."
+
 ## Two ways to make money
 
 **1. Paid clipping campaigns (fastest).** Streamers and brands pay clippers per 1,000 views on approved clips. On Whop Content Rewards around $1 per 1K views is common; every campaign shows its own rate, budget left and rules. `campaign-finder` reads them live and never guesses a number. You read the rules, clip only that creator, post, submit the link.
